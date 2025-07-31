@@ -21,7 +21,7 @@ A modern e-commerce platform with AI-powered shopping assistant, built with Fast
 
 1. **Clone and navigate to project**:
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/elloukelie/final_ecom.git
    cd final_ecom
    ```
 
