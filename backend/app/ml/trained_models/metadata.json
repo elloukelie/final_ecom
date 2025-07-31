@@ -1,0 +1,22 @@
+{
+  "feature_names": [
+    "age",
+    "gender",
+    "region",
+    "tenure_days",
+    "total_orders",
+    "total_spent",
+    "avg_order_value",
+    "days_since_last_order",
+    "total_sessions",
+    "avg_session_duration",
+    "pages_per_session",
+    "cart_abandonment_rate",
+    "support_tickets",
+    "preferred_category",
+    "seasonal_activity",
+    "marketing_channel"
+  ],
+  "trained_at": "2025-07-31T05:30:57.575001",
+  "is_trained": true
+}

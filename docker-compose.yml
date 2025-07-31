@@ -1,0 +1,72 @@
+services:
+  # MySQL Database Service
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-changeme123}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-shopping_website}
+      MYSQL_USER: ${MYSQL_USER:-app_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-changeme123}
+    ports:
+      - "127.0.0.1:3306:3306" # Bind to localhost only
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./backend/database/init.sql:/docker-entrypoint-initdb.d/init.sql # Mount init.sql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-changeme123}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Caching Service
+  redis:
+    image: redis:latest
+    container_name: redis_cache
+    ports:
+      - "127.0.0.1:6379:6379" # Bind to localhost only
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API Service
+  backend:
+    build: ./backend
+    container_name: ecom_backend
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-shopping_website}
+      - MYSQL_USER=${MYSQL_USER:-app_user}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-changeme123}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-your-secret-key-change-this}
+      - REDIS_URL=redis://redis:6379
+    ports:
+      - "127.0.0.1:8000:8000" # Bind to localhost only
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./backend:/app
+
+  # Frontend Service
+  frontend:
+    build: ./frontend
+    container_name: ecom_frontend
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - API_BASE_URL=http://backend:8000
+      - BACKEND_BASE_URL=http://localhost:8000
+    ports:
+      - "127.0.0.1:8501:8501" # Bind to localhost only
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+
+volumes:
+  db_data: {}
+  redis_data: {}

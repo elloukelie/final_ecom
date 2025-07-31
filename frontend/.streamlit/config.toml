@@ -1,0 +1,12 @@
+[server]
+# Security settings - localhost only
+address = "127.0.0.1"
+port = 8501
+headless = true
+
+# Disable external access
+enableCORS = false
+enableXsrfProtection = true
+
+# UI settings
+showWarningOnDirectExecution = false

@@ -1,0 +1,41 @@
+# Core FastAPI dependencies
+fastapi>=0.104.1
+uvicorn>=0.24.0
+pydantic[email]>=2.5.0
+python-multipart>=0.0.6
+python-jose[cryptography]>=3.3.0
+email-validator>=2.1.0
+python-dotenv>=1.0.0
+
+# Database dependencies
+mysql-connector-python>=8.2.0
+sqlalchemy>=2.0.23
+
+# Authentication and security
+passlib[bcrypt]>=1.7.4
+bcrypt>=4.1.2
+
+# Web framework and HTTP client
+streamlit>=1.28.0
+requests>=2.31.0
+watchdog>=6.0.0
+
+# Data processing and analysis
+pandas>=2.1.0
+numpy>=1.25.0
+
+# OpenAI API
+openai>=1.0.0
+
+# Machine Learning and Visualization Dependencies
+plotly>=5.17.0
+scikit-learn>=1.3.2
+joblib>=1.3.2
+
+# Optional ML dependencies for advanced features
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# Additional useful packages
+watchdog>=6.0.0
+typing-extensions>=4.8.0
